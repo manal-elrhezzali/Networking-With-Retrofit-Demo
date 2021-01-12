@@ -53,7 +53,28 @@ public class MainActivity extends AppCompatActivity {
 //                createPost();
 
 //                createPostSendItAsFormUrlEncoded();
-                createPostSendItAsFormUrlEncodedWithFieldMap();
+//                createPostSendItAsFormUrlEncodedWithFieldMap();
+                deletePostById();
+            }
+        });
+    }
+
+    private void deletePostById() {
+        int id = Integer.valueOf(String.valueOf(editText.getText()));
+        Call<Void> call = postDataService.deletePostById(id);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (!response.isSuccessful()) {
+                    textView.setText("Code :" + response.code());
+                    return;
+                }
+                textView.setText("post deleted successfully, the response code is  " + response.code());
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                textView.setText(t.getMessage());
             }
         });
     }

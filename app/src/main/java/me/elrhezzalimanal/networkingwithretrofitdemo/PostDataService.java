@@ -5,11 +5,14 @@ import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
@@ -51,10 +54,22 @@ public interface PostDataService {
             @Field("body") String text
     );
 
-    //youcan't pass varargs or arrays or lists to the Map ,you must add another parameter @Field("someStuff") int[] stuff
+    //you can't pass varargs or arrays or lists to the Map ,you must add another parameter @Field("someStuff") int[] stuff
     @FormUrlEncoded
     @POST("posts")
     Call<Post> createPostSendItAsFormUrlEncodedWithFieldMap(@FieldMap Map<String, String> fields);
 
+    //updates an existing resources by replacing it by the post object that we send over,and if we don't pass a field it will be set to null
+    //returns the object you send over to the server
+    @PUT("posts/{id}")
+    Call<Post> putPost(@Path("id") int id, @Body Post post);
 
+    //updates an existing resources by changing the fields and setting them to the value of those of the object post that we sent over,and if we don't pass a field it keeps its old value
+    //returns the object you send over to the server
+    @PATCH("posts/{id}")
+    Call<Post> patchPost(@Path("id") int id, @Body Post post);
+
+    //returns an empty body response
+    @DELETE("posts/{id}")
+    Call<Void> deletePostById(@Path("id") int id);
 }
