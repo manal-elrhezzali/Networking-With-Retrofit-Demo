@@ -47,10 +47,10 @@ public class MainActivity extends AppCompatActivity {
 //                getPostsByUserId();
 //                getAllComments();
 //                getCommentsOfPost();
-//                getPosts();
+                getPosts();
 
 //                getComments();
-                createPost();
+//                createPost();
 
 //                createPostSendItAsFormUrlEncoded();
 //                createPostSendItAsFormUrlEncodedWithFieldMap();
@@ -180,7 +180,7 @@ public class MainActivity extends AppCompatActivity {
         String userId = String.valueOf(editText.getText());
         Map<String, String> parameters = new HashMap<>();
         parameters.put("userId", userId);
-        parameters.put("id", "13");
+        parameters.put("id", "3");
         Call<List<Post>> call = postDataService.getPosts(parameters);
         call.enqueue(new Callback<List<Post>>() {
             @Override
