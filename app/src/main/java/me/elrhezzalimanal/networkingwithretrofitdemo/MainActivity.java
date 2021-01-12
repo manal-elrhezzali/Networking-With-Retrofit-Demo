@@ -125,7 +125,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void createPost() {
-        Post post = new Post(102, "A NEW POST BY Manal", "This is the body of the new Post ");
+        Post post = new Post(102,
+                "A NEW POST BY Manal",
+                "This is the body of the new Post "
+        );
+        
         Call<Post> call = postDataService.createPost(post);
         call.enqueue(new Callback<Post>() {
             @Override
