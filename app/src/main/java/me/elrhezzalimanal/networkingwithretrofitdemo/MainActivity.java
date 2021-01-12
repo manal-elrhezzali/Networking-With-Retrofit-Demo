@@ -129,8 +129,11 @@ public class MainActivity extends AppCompatActivity {
                 "A NEW POST BY Manal",
                 "This is the body of the new Post "
         );
-        
-        Call<Post> call = postDataService.createPost(post);
+        Map <String,String> headersMap = new HashMap<>();
+        headersMap.put("Map-Header1", "I am a header");
+        headersMap.put("Map-Header2", "It's hard to come up with names");
+
+        Call<Post> call = postDataService.createPost(headersMap, post);
         call.enqueue(new Callback<Post>() {
             @Override
             public void onResponse(Call<Post> call, Response<Post> response) {

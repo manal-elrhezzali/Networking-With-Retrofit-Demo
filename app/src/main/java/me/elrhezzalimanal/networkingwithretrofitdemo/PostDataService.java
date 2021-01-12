@@ -11,6 +11,7 @@ import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.HeaderMap;
 import retrofit2.http.Headers;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
@@ -45,8 +46,9 @@ public interface PostDataService {
     @GET("posts")
     Call<List<Post>> getPosts(@QueryMap Map<String, String> parameters);//the first String is the key the name of the parameter for exp userId the second is the value
 
+    //if you don't know how many headers you want to pass, you can us a HeaderMap
     @POST("posts")
-    Call<Post> createPost(@Body Post post);
+    Call<Post> createPost(@HeaderMap Map<String, String> headers, @Body Post post);
 
     @FormUrlEncoded
     @POST("posts")
@@ -66,6 +68,12 @@ public interface PostDataService {
     @Headers({"Static-Header1: 123", "Static-Header2: 456"})
     @PUT("posts/{id}")
     Call<Post> putPost(@Header("Dynamic-Header") String header,
+                       @Path("id") int id,
+                       @Body Post post
+    );
+
+    @PUT("posts/{id}")
+    Call<Post> putPost(@HeaderMap Map<String, String> headers,
                        @Path("id") int id,
                        @Body Post post
     );
