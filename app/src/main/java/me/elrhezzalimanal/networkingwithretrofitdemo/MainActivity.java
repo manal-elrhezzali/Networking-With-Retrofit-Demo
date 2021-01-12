@@ -49,7 +49,74 @@ public class MainActivity extends AppCompatActivity {
 //                getCommentsOfPost();
 //                getPosts();
 
-                getComments();
+//                getComments();
+//                createPost();
+
+//                createPostSendItAsFormUrlEncoded();
+                createPostSendItAsFormUrlEncodedWithFieldMap();
+            }
+        });
+    }
+
+    private void createPostSendItAsFormUrlEncodedWithFieldMap() {
+        Map<String, String> fields = new HashMap<>();
+        fields.put("userId", "123");
+        fields.put("title", "I am the title");
+        fields.put("body","AND AAAAAAAA IAAAAAAAAAY WILL ALWAAAAYS  LOOOOVE UUUUU AAAAAAAAY");//if we don't send a title for exp its value will be set to null
+        Call<Post> call = postDataService.createPostSendItAsFormUrlEncodedWithFieldMap(fields);
+        call.enqueue(new Callback<Post>() {
+            @Override
+            public void onResponse(Call<Post> call, Response<Post> response) {
+                if (!response.isSuccessful()) {
+                    textView.setText("Code :" + response.code());
+                    return;
+                }
+                textView.setText(response.body().getTitle());
+
+            }
+
+            @Override
+            public void onFailure(Call<Post> call, Throwable t) {
+                textView.setText(t.getMessage());
+            }
+        });
+    }
+
+    private void createPostSendItAsFormUrlEncoded() {
+        Call<Post> call = postDataService.createPostSendItAsFormUrlEncoded(89,"MANAL CREATED ME", "TEXT WRITTEN BY MANAL");//this will be passed as  userId=89&title=MANAL%20CREATED%20ME&body=TEXT%20WRITTEN%20BY%20MANAL
+        call.enqueue(new Callback<Post>() {
+            @Override
+            public void onResponse(Call<Post> call, Response<Post> response) {
+                if (!response.isSuccessful()) {
+                    editText.setText(" Response Code " + response.code());
+                    return;
+                }
+                textView.setText(response.body().getTitle());
+            }
+
+            @Override
+            public void onFailure(Call<Post> call, Throwable t) {
+                editText.setText(t.getMessage());
+            }
+        });
+    }
+
+    private void createPost() {
+        Post post = new Post(102, "A NEW POST BY Manal", "This is the body of the new Post ");
+        Call<Post> call = postDataService.createPost(post);
+        call.enqueue(new Callback<Post>() {
+            @Override
+            public void onResponse(Call<Post> call, Response<Post> response) {
+                if (!response.isSuccessful()) {
+                    editText.setText(" Response Code " + response.code());
+                    return;
+                }
+                textView.setText(response.body().getTitle());
+            }
+
+            @Override
+            public void onFailure(Call<Post> call, Throwable t) {
+                editText.setText(t.getMessage());
             }
         });
     }
