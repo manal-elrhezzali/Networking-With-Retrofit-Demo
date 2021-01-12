@@ -50,11 +50,13 @@ public class MainActivity extends AppCompatActivity {
 //                getPosts();
 
 //                getComments();
-//                createPost();
+                createPost();
 
 //                createPostSendItAsFormUrlEncoded();
 //                createPostSendItAsFormUrlEncodedWithFieldMap();
-                deletePostById();
+//                deletePostById();
+
+
             }
         });
     }

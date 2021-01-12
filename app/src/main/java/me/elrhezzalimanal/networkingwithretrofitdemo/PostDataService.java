@@ -72,4 +72,6 @@ public interface PostDataService {
     //returns an empty body response
     @DELETE("posts/{id}")
     Call<Void> deletePostById(@Path("id") int id);
+
+
 }
